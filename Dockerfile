@@ -6,6 +6,7 @@ ADD ./stack/ /build
 RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive /build/prepare
 RUN apt-get install -y time
 VOLUME /data
-WORKDIR /data
+RUN mkdir /app
+RUN ln -s /data/data.sqlite /app/data.sqlite
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean
