@@ -82,10 +82,11 @@ cat > /start <<EOF
 export HOME=/app
 for file in $app_root/.profile.d/*; do source \$file; done
 hash -r
+cd $app_root
 if [[ -f Procfile ]]; then
-    ruby -e "require 'yaml';puts YAML.load_file('$app_root/Procfile')['\$1']" | bash
+    ruby -e "require 'yaml';puts YAML.load_file('Procfile')['\$1']" | bash
 else
-    ruby -e "require 'yaml';puts (YAML.load_file('$app_root/.release')['default_process_types'] || {})['\$1']" | bash
+    ruby -e "require 'yaml';puts (YAML.load_file('.release')['default_process_types'] || {})['\$1']" | bash
 fi
 EOF
 chmod +x /start
