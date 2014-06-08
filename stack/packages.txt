@@ -43,3 +43,6 @@ socat
 sqlite3
 telnet
 zlib1g-dev
+libblas-dev
+liblapack-dev
+gfortran
