@@ -46,3 +46,4 @@ zlib1g-dev
 libblas-dev
 liblapack-dev
 gfortran
+swig
