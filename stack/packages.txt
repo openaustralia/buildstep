@@ -47,3 +47,5 @@ libblas-dev
 liblapack-dev
 gfortran
 swig
+protobuf-compiler
+libprotobuf-dev
