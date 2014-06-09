@@ -2,4 +2,4 @@
 all: build
 
 build:
-	docker build -t openaustralia/buildstep .
+	docker build -t openaustralia/buildstep2 .
