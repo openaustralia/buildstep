@@ -1,8 +1,7 @@
-FROM ubuntu:quantal
-MAINTAINER progrium "progrium@gmail.com"
+FROM progrium/cedarish:cedar14
+MAINTAINER Jeff Lindsay <progrium@gmail.com>
 
-RUN mkdir /build
-ADD ./stack/ /build
-RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive /build/prepare
-RUN rm -rf /var/lib/apt/lists/*
-RUN apt-get clean
+ADD ./stack/configs/etc-profile /etc/profile
+
+ADD ./builder/ /build
+RUN xargs -L 1 /build/install-buildpack /tmp/buildpacks < /build/config/buildpacks.txt
