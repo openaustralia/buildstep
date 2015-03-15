@@ -1,4 +1,4 @@
-FROM progrium/cedarish:cedar14
+FROM progrium/cedarish
 MAINTAINER Jeff Lindsay <progrium@gmail.com>
 
 # Beginning of changes for morph.io
