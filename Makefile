@@ -2,7 +2,7 @@
 all: build
 
 build:
-	docker build -t progrium/buildstep .
+	docker build -t openaustralia/buildstep .
 
 test: build-test run-test
 
