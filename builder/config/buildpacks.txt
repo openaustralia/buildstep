@@ -10,3 +10,4 @@ https://github.com/heroku/heroku-buildpack-scala.git#v50
 https://github.com/heroku/heroku-buildpack-play.git#v23
 https://github.com/heroku/heroku-buildpack-php.git#v63
 https://github.com/heroku/heroku-buildpack-go.git#a14a080a
+https://github.com/miyagawa/heroku-buildpack-perl.git#2da7480a8339f01968ce3979655555a0ade20564
