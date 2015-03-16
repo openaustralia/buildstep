@@ -1,12 +1,5 @@
-FROM progrium/cedarish
+FROM openaustralia/morph-docker-buildstep-base
 MAINTAINER Jeff Lindsay <progrium@gmail.com>
-
-# Beginning of changes for morph.io
-RUN apt-get install -y libblas-dev liblapack-dev gfortran swig protobuf-compiler libprotobuf-dev libsqlite3-dev time
-RUN mkdir /app
-VOLUME /data
-RUN ln -s /data/data.sqlite /app/data.sqlite
-# End of changes for morph.io
 
 ADD ./stack/configs/etc-profile /etc/profile
 
