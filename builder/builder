@@ -10,7 +10,7 @@ mkdir -p $build_root/.profile.d
 
 # Give the scraper user the same uid as deploy on the docker server
 user_id=4243
-user_name="u${user_id}"
+user_name="scraper"
 
 # Create a random user
 /usr/sbin/addgroup --quiet --gid $user_id $user_name
