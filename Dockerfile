@@ -1,7 +1,13 @@
 FROM openaustralia/morph-docker-buildstep-base
-MAINTAINER Jeff Lindsay <progrium@gmail.com>
 
-ADD ./stack/configs/etc-profile /etc/profile
+RUN curl https://github.com/gliderlabs/herokuish/releases/download/v0.3.1/herokuish_0.3.1_linux_x86_64.tgz \
+		--silent -L | tar -xzC /bin
 
-ADD ./builder/ /build
-RUN xargs -L 1 /build/install-buildpack /tmp/buildpacks < /build/config/buildpacks.txt
+# install herokuish supported buildpacks and entrypoints
+RUN /bin/herokuish buildpack install \
+	&& ln -s /bin/herokuish /build \
+	&& ln -s /bin/herokuish /start \
+	&& ln -s /bin/herokuish /exec
+
+# backwards compatibility
+ADD ./rootfs /
