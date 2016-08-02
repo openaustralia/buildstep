@@ -11,3 +11,6 @@ RUN /bin/herokuish buildpack install \
 
 # backwards compatibility
 ADD ./rootfs /
+
+# Add perl buildpack for morph
+RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 2da7480a8339f01968ce3979655555a0ade20564
