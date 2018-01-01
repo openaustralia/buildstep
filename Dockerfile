@@ -4,13 +4,7 @@ RUN curl https://github.com/gliderlabs/herokuish/releases/download/v0.3.33/herok
 		--silent -L | tar -xzC /bin
 
 # install herokuish supported buildpacks and entrypoints
-RUN /bin/herokuish buildpack install \
-	&& ln -s /bin/herokuish /build \
-	&& ln -s /bin/herokuish /start \
-	&& ln -s /bin/herokuish /exec
-
-# backwards compatibility
-ADD ./rootfs /
+RUN /bin/herokuish buildpack install
 
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 2da7480a8339f01968ce3979655555a0ade20564
