@@ -25,3 +25,5 @@ This repository also contains the CA certificate that gets installed into morph.
 5. Carry out the steps above "After updating this repository"
 6. Replace the certificates in the main [morph.io repository](https://github.com/openaustralia/morph) by copying all 5 from `~/.mitmproxy` to that repository. Push your changes to GitHub and deploy morph.io
 7. Re-enable the mitmproxy on the server by running `iptables-morph-add`
+
+Annoyingly we can't just use a certificate that expires a long time in the future (say 10 years). See https://github.com/mitmproxy/mitmproxy/issues/815
