@@ -20,7 +20,7 @@ This repository also contains the CA certificate that gets installed into morph.
 
 1. Before you start you probably want to disable mitmproxy on the server. Run `iptables-morph-remove` on the server to do this
 2. Install and run `mitmproxy` on your machine, this will create a set of certificates in `~/.mitmproxy`
-3. Check the expiry on `mitmproxy-ca-cert.pem` in that directory - it should be a few years off
+3. Check the expiry on `mitmproxy-ca-cert.pem` in that directory (Use `openssl x509 -in mitmproxy-ca-cert.pem -text -noout`)- it should be a few years off
 4. Overwrite the `mitmproxy-ca-cert.pem` file in this repository with the one from your machine
 5. Carry out the steps above "After updating this repository"
 6. Replace the certificates in the main [morph.io repository](https://github.com/openaustralia/morph) by copying all 5 from `~/.mitmproxy` to that repository. Push your changes to GitHub and deploy morph.io
