@@ -40,6 +40,12 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 			apt-get update && \
 			apt-get -y install google-chrome-stable
 
+# We also need to make chrome trust our CA cert
+RUN apt-get -y install libnss3-tools && \
+			mkdir -p /app/.pki/nssdb && \
+			certutil -d sql:/app/.pki/nssdb -N --empty-password && \
+			certutil -d sql:/app/.pki/nssdb -A -t "C,," -n "mitmproxy ca cert" -i /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
+
 # Make python pip use the new ca certificate. Wouldn't it be great if it used
 # the system ca certificates by default? Well, it doesn't.
 # Setting the PIP_CERT environment variable didn't work but this does
