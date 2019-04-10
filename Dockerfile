@@ -1,4 +1,4 @@
-FROM gliderlabs/herokuish:v0.4.8
+FROM gliderlabs/herokuish:v0.5.0
 MAINTAINER Matthew Landauer <matthew@oaf.org.au>
 
 # Add perl buildpack for morph
