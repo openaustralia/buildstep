@@ -35,10 +35,10 @@ RUN wget https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_l
 			mv chromedriver /usr/local/bin
 
 # Install chrome
-RUN curl -sSO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    dpkg -i google-chrome-stable_current_amd64.deb || true && \
-    apt --fix-broken install -y && \
-    rm google-chrome-stable_current_amd64.deb
+RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+			echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+			apt-get update && \
+			apt-get -y install google-chrome-stable
 
 # We also need to make chrome trust our CA cert
 RUN apt-get -y install libnss3-tools && \
