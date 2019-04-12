@@ -32,7 +32,8 @@ RUN apt-get install -y phantomjs
 RUN wget https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_linux64.zip && \
 			unzip chromedriver_linux64.zip && \
 			rm chromedriver_linux64.zip && \
-			mv chromedriver /usr/local/bin
+			mv chromedriver /usr/local/bin && \
+			chmod ugo+x /usr/local/bin/chromedriver
 
 # Install chrome
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
