@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y time libblas-dev liblapack-dev gfortran
 RUN apt-get install -y phantomjs
 
 # Install chromedriver
-RUN wget https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip && \
+RUN wget https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_linux64.zip && \
 			unzip chromedriver_linux64.zip && \
 			rm chromedriver_linux64.zip && \
 			mv chromedriver /usr/local/bin
