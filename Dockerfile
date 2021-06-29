@@ -19,6 +19,10 @@ RUN update-ca-certificates
 # Add prerun script which will disable output buffering for ruby
 ADD prerun.rb /usr/local/lib/prerun.rb
 
+# Postgres doesn't support this ancient version of Ubuntu and we don't
+# need it. So commenting out of apt sources
+RUN sed -e '/postgresql/ s/^#*/#/' -i /etc/apt/sources.list
+
 # poppler-utils has a more recent pdftohtml than the pdftohtml package
 # pdftohtml is needed by the python scraperwiki library
 # libffi-dev needed by python cffi
