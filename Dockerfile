@@ -22,8 +22,13 @@ RUN apt-get update && apt-get install -y time libblas-dev liblapack-dev gfortran
 # PhantomJS has been deprecated
 RUN apt-get install -y phantomjs
 
+# Version of chromedriver needs to match up with the version of chrome installed
+# As of June 29 2021, Google Chrome version 91.0.4472.114 is installed
+# There doesn't seem to a way that I can see to force a particular (old) version of
+# Chrome to be installed. Sigh.
+
 # Install chromedriver
-RUN wget https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_linux64.zip && \
+RUN wget https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip && \
 			unzip chromedriver_linux64.zip && \
 			rm chromedriver_linux64.zip && \
 			mv chromedriver /usr/local/bin && \
