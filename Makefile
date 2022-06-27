@@ -2,6 +2,5 @@
 all: build
 
 build:
-	docker build -t openaustralia/buildstep:`git symbolic-ref --short HEAD` .
-	docker build -t openaustralia/buildstep:`git rev-parse --short HEAD` .
-	docker build -t openaustralia/buildstep:latest .
+	docker build -t openaustralia/buildstep:latest -f Dockerfile .
+	docker build -t openaustralia/buildstep:early_release -f Dockerfile.early_release .
