@@ -40,4 +40,6 @@ jobs:
         with:
           push: true
           file: Dockerfile.early_release
-          tags: openaustralia/buildstep:early_release
+          tags: |
+            openaustralia/buildstep:early_release
+            openaustralia/buildstep:heroku-18
