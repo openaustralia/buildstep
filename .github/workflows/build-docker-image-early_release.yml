@@ -1,9 +1,9 @@
-name: build-docker-image
+name: build-docker-image-early_release
 
 on:
   push:
-    # TODO: Add support for building early_release and cedar-14 branches as well
-    branches: master
+    # TODO: Add support for building cedar-14 branch as well
+    branches: early_release
 
 jobs:
   build:
@@ -30,4 +30,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: openaustralia/buildstep:latest
+          tags: openaustralia/buildstep:early_release
