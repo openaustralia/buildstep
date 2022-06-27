@@ -18,6 +18,12 @@ RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpac
 ADD mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
 RUN update-ca-certificates
 
+# From https://askubuntu.com/questions/1366704/how-to-install-latest-ca-certificates-on-ubuntu-14#comment2352285_1366719
+# This removes expired root certificates
+RUN cp /etc/ca-certificates.conf /etc/ca-certificates.conf.orig
+RUN cat /etc/ca-certificates.conf.orig | sed 's|mozilla/DST_Root_CA_X3.crt|!mozilla//DST_Root_CA_X3.crt|g' > /etc/ca-certificates.conf
+RUN dpkg-reconfigure -fnoninteractive ca-certificates
+
 # Add prerun script which will disable output buffering for ruby
 ADD prerun.rb /usr/local/lib/prerun.rb
 
