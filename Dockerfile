@@ -1,5 +1,4 @@
 FROM gliderlabs/herokuish:v0.5.0
-MAINTAINER Matthew Landauer <matthew@oaf.org.au>
 
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 2da7480a8339f01968ce3979655555a0ade20564
@@ -9,6 +8,12 @@ RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpac
 # https://github.com/openaustralia/morph
 ADD mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
 RUN update-ca-certificates
+
+# From https://askubuntu.com/questions/1366704/how-to-install-latest-ca-certificates-on-ubuntu-14#comment2352285_1366719
+# This removes expired root certificates
+RUN cp /etc/ca-certificates.conf /etc/ca-certificates.conf.orig
+RUN cat /etc/ca-certificates.conf.orig | sed 's|mozilla/DST_Root_CA_X3.crt|!mozilla//DST_Root_CA_X3.crt|g' > /etc/ca-certificates.conf
+RUN dpkg-reconfigure -fnoninteractive ca-certificates
 
 # Add prerun script which will disable output buffering for ruby
 ADD prerun.rb /usr/local/lib/prerun.rb
@@ -23,12 +28,12 @@ RUN apt-get update && apt-get install -y time libblas-dev liblapack-dev gfortran
 RUN apt-get install -y phantomjs
 
 # Version of chromedriver needs to match up with the version of chrome installed
-# As of June 29 2021, Google Chrome version 91.0.4472.114 is installed
+# As of June 27 2022, Google Chrome version 103.0.5060.53 is installed
 # There doesn't seem to a way that I can see to force a particular (old) version of
 # Chrome to be installed. Sigh.
 
 # Install chromedriver
-RUN wget https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip && \
+RUN wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip && \
 			unzip chromedriver_linux64.zip && \
 			rm chromedriver_linux64.zip && \
 			mv chromedriver /usr/local/bin && \
