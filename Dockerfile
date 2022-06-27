@@ -1,5 +1,8 @@
 FROM heroku/cedar:14
 
+# herokuish 0.3.36 (released in March 2018) is the last version based on cedar-14. It's very old.
+# We can't upgrade further without getting rid of cedar and upgrading to a more recent version of the
+# underlying OS on the container image
 RUN curl https://github.com/gliderlabs/herokuish/releases/download/v0.3.33/herokuish_0.3.33_linux_x86_64.tgz \
 		--silent -L | tar -xzC /bin
 
