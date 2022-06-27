@@ -30,10 +30,10 @@ jobs:
         with:
           push: true
           file: Dockerfile
-          tags:
-          	# "latest" is currently the default tag used on morph.io
-            - openaustralia/buildstep:latest
-            - openaustralia/buildstep:cedar-14
+          # "latest" is currently the default tag used on morph.io
+          tags: |
+            openaustralia/buildstep:latest
+            openaustralia/buildstep:cedar-14
 
       - name: Build and push early_release
         uses: docker/build-push-action@v2
