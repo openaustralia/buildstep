@@ -13,7 +13,6 @@ After updating this repo:
 1. Push to GitHub. This will trigger an automatic build on GitHub actions (see .github/workflows) which will push the final image to Docker Hub
 2. Wait until the build is complete (See https://github.com/openaustralia/buildstep/actions)
 3. Either deploy morph.io to force latest images to be downloaded or ssh to morph.io and `docker pull openaustralia/buildstep`
-4. Repeat with other branches master, cedar-14 and early_release if necessary
 
 ## Updating the mitmproxy CA certificate
 
