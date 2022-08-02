@@ -30,17 +30,13 @@ jobs:
         with:
           push: true
           file: Dockerfile.cedar-14
-          # "latest" is currently the default tag used on morph.io
           tags: |
             openaustralia/buildstep:cedar-14
-            openaustralia/buildstep:latest
 
       - name: Build and push heroku-18
         uses: docker/build-push-action@v2
         with:
           push: true
           file: Dockerfile.heroku-18
-          # TODO: Get rid of use of early_release on morph.io when we can
           tags: |
             openaustralia/buildstep:heroku-18
-            openaustralia/buildstep:early_release
