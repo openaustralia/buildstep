@@ -19,18 +19,16 @@ ADD prerun.rb /usr/local/lib/prerun.rb
 RUN apt-get update && apt-get install -y time libblas-dev liblapack-dev gfortran swig protobuf-compiler libprotobuf-dev libsqlite3-dev poppler-utils libffi-dev
 
 # PhantomJS has been deprecated
-RUN apt-get install -y phantomjs
+# RUN apt-get install -y phantomjs
 
 # Version of chromedriver needs to match up with the version of chrome installed
-# As of June 27 2022, Google Chrome version 103.0.5060.53 is installed
-# There doesn't seem to a way that I can see to force a particular (old) version of
-# Chrome to be installed. Sigh.
+# As of May 21 2025, Google Chrome version 136.0.7103.113-1 is installed
 
 # Install chromedriver
-RUN wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip && \
-			unzip chromedriver_linux64.zip && \
-			rm chromedriver_linux64.zip && \
-			mv chromedriver /usr/local/bin && \
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/136.0.7103.94/linux64/chromedriver-linux64.zip && \
+			unzip chromedriver-linux64.zip && \
+			rm chromedriver-linux64.zip && \
+			mv chromedriver-linux64/chromedriver /usr/local/bin && \
 			chmod ugo+x /usr/local/bin/chromedriver
 
 # Install chrome
