@@ -50,4 +50,4 @@ jobs:
           push: true
           file: Dockerfile.heroku-24
           tags: |
-            openaustralia/buildstep:heroku-24
+            ${{ github.repository }}:heroku-24
