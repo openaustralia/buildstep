@@ -2,7 +2,8 @@ name: build-docker-images
 
 on:
   push:
-    branches: master
+    branches: 
+      - 'main'
 
 jobs:
   build:
