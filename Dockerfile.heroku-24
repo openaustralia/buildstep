@@ -1,5 +1,10 @@
 FROM gliderlabs/herokuish:v0.10.3-24
 
+# Docker 20.10.7's default seccomp profile blocks clone3, which glibc 2.34+
+# (Ubuntu 22.04+) requires for parallel A/AAAA DNS queries. Force sequential
+# queries to avoid thread creation during name resolution.
+ENV RES_OPTIONS="single-request"
+
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 1f7fafa95a00ee39df9d5a035c6a253d1d79fe56
 
