@@ -1,4 +1,5 @@
-FROM gliderlabs/herokuish:v0.10.3 #Last version based on heroku-20
+#Last version based on heroku-20
+FROM gliderlabs/herokuish:v0.10.3
 
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 1f7fafa95a00ee39df9d5a035c6a253d1d79fe56
