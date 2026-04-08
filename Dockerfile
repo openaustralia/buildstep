@@ -1,4 +1,4 @@
-FROM gliderlabs/herokuish:v0.10.3 #Last version based on heroku-20
+FROM gliderlabs/herokuish:v0.10.3-24
 
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 1f7fafa95a00ee39df9d5a035c6a253d1d79fe56
@@ -48,3 +48,5 @@ RUN apt-get -y install libnss3-tools && \
 # Setting the PIP_CERT environment variable didn't work but this does
 # TODO Remove this once compiles don't send traffic to mitmproxy
 ADD pip.conf /etc/pip.conf
+ADD --chmod=ugo+x https://github.com/AkihiroSuda/clone3-workaround/releases/download/v1.0.0/clone3-workaround.x86_64 /bin/clone3-workaround
+ONBUILD SHELL ["/bin/clone3-workaround","/bin/sh", "-c"]
