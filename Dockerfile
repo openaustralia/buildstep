@@ -50,3 +50,4 @@ RUN apt-get -y install libnss3-tools && \
 ADD pip.conf /etc/pip.conf
 ADD --chmod=ugo+x https://github.com/AkihiroSuda/clone3-workaround/releases/download/v1.0.0/clone3-workaround.x86_64 /bin/clone3-workaround
 ENTRYPOINT ["/bin/clone3-workaround","/bin/sh", "-c"]
+SHELL ["/bin/clone3-workaround","/bin/sh", "-c"]
