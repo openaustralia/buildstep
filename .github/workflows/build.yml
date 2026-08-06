@@ -13,6 +13,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Needed because the org default GITHUB_TOKEN is read-only.
+    # This job logs in to ghcr.io with GITHUB_TOKEN and pushes an image.
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v1
