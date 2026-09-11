@@ -3,6 +3,30 @@ FROM gliderlabs/herokuish:v0.5.36-18
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 2da7480a8339f01968ce3979655555a0ade20564
 
+# Override the built-in ruby buildpack (pinned by herokuish itself to heroku/heroku-buildpack-ruby
+# tag v362, still the latest official release as of writing - see
+# https://github.com/gliderlabs/herokuish/blob/master/buildpacks/buildpack-ruby/buildpack-version).
+# At v362, the buildpack's own bootstrap step reads a scraper's Gemfile.lock using a hardcoded old
+# Bundler (1.15.2) before it ever gets to installing whatever Ruby/Bundler the scraper's own
+# Gemfile actually asks for - so any scraper with a lockfile written by a modern Bundler (2.x, i.e.
+# anyone using current tooling) fails immediately with "You must use Bundler 2 or greater with
+# this lockfile.", regardless of what Ruby version their Gemfile specifies.
+#
+# Pinned to 215828f, the last upstream commit before heroku-buildpack-ruby started hard-rejecting
+# the heroku-18 stack outright (see openaustralia/morph#1530 for the full history of what was
+# tried and ruled out here) - anything after that point refuses to run on heroku-18 at all,
+# regardless of Ruby version.
+#
+# The buildpack.toml patch below is load-bearing, not cosmetic: heroku-buildpack-ruby's own
+# default bootstrap Ruby versions from this era (3.1.6, 3.3.7, 3.3.8, 3.3.9) all 404/403 against
+# Heroku's own S3 bucket for heroku-18 specifically - that stack's assets appear to have been
+# pruned down to whatever was already cached before it went EOL. 3.2.2 is confirmed (as of
+# writing) to still be present there, and happens to match what our own scrapers already pin in
+# their Gemfiles - tested end-to-end against a real scraper (bundle install completes cleanly,
+# no LockfileError, no download failure).
+RUN /bin/herokuish buildpack install https://github.com/heroku/heroku-buildpack-ruby.git 215828f6cab08236e1f90f6935b5982cc3be4643 01_buildpack-ruby && \
+    sed -i 's/ruby_version = ".*"/ruby_version = "3.2.2"/' /tmp/buildpacks/01_buildpack-ruby/buildpack.toml
+
 # Add certificate authority used by mitmproxy
 # Also needs to be identical to the cert at mitmproxy/mitmproxy-ca-cert.pem in
 # https://github.com/openaustralia/morph
