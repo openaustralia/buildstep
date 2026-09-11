@@ -3,6 +3,13 @@ FROM gliderlabs/herokuish:v0.5.36-18
 # Add perl buildpack for morph
 RUN /bin/herokuish buildpack install https://github.com/miyagawa/heroku-buildpack-perl.git 2da7480a8339f01968ce3979655555a0ade20564
 
+# Override herokuish's stale Ruby buildpack pin (v362) to fix modern-Bundler lockfiles failing
+# on heroku-18, using a commit before heroku-18 support was dropped upstream, with its bootstrap
+# Ruby version patched to 3.2.2 (the only version still available in Heroku's S3 bucket for this
+# EOL stack). See openaustralia/morph#1530 for the full diagnosis.
+RUN /bin/herokuish buildpack install https://github.com/heroku/heroku-buildpack-ruby.git 215828f6cab08236e1f90f6935b5982cc3be4643 01_buildpack-ruby && \
+    sed -i 's/ruby_version = ".*"/ruby_version = "3.2.2"/' /tmp/buildpacks/01_buildpack-ruby/buildpack.toml
+
 # Add certificate authority used by mitmproxy
 # Also needs to be identical to the cert at mitmproxy/mitmproxy-ca-cert.pem in
 # https://github.com/openaustralia/morph
